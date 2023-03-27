@@ -54,7 +54,7 @@
         <!-- End Header -->
 
 
-          <section v-if="page === 'products'" class="py-5 text-center container jumbotron ">
+          <section v-if="page === 'products'" class="py-5 text-center container-fluid jumbotron primary-background ">
             <div class="row py-lg-5">
               <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-bold headline-color ">School UMS</h1>
@@ -680,7 +680,6 @@ export default{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 
 .primary-background {
