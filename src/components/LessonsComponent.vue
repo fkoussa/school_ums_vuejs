@@ -128,7 +128,7 @@
               <button
                 class="btn btn-primary"
                 v-if="checkProductQuantity(product)"
-                v-on:click="decreaseCartQuantity(product)"
+                @click="decreaseQuantity(product)"
               >
                 <span class="fas fa-arrow-down"></span>
               </button>
@@ -299,11 +299,11 @@ export default {
     page: { type: String, required: true },
     products: { type: Array, required: true },
     // showProducts: {type: Boolean, required: true},
-    cart: { type: Array, required: true},
+    cart: { type: Array, required: true },
     productList: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
     // productList: { type: Array, required: true },
   },
   data() {
@@ -326,26 +326,26 @@ export default {
     };
   },
   methods: {
+    decreaseQuantity(product){
+        console.log("Decreasing Quantity...");
+        console.log(product);
+        this.$emit("decrease-cart-quantity", product);
+    },
     removeFromCart(product) {
-    this.$emit('remove-from-cart', product);
-  },
+      this.$emit("remove-from-cart", product);
+    },
     // Show or Hide Quantity Decreaser button in the cart page
     checkProductQuantity(product) {
       if (product.cartquantity > 0) {
         return true;
       } else {
         // this.cart.splice(product, 1);
-        this.$emit('remove-from-cart', product);
+        this.$emit("remove-from-cart", product);
         return false;
       }
     },
 
-     // Decrease the quantity of the product by one (1)
-     decreaseCartQuantity(product) {
-      product.cartquantity -= 1;
-      product.space += 1;
-    },
-
+   
 
     showCart() {
       // Toggle
@@ -356,7 +356,7 @@ export default {
     addToCart(product) {
       // console.log(product.id);
       if (!this.cart.includes(product)) {
-        this.$emit('add-to-cart', product);
+        this.$emit("add-to-cart", product);
         // this.cart.push(product);
         product.cartquantity += 1;
         product.space--;
@@ -370,7 +370,7 @@ export default {
         product.space--;
       }
     },
-     validateCheckoutInformation() {
+    validateCheckoutInformation() {
       let name_regex = /^[A-Za-z\s]+$/;
       let phone_regex = /^[0-9]+$/;
 
@@ -404,9 +404,9 @@ export default {
                 state: "",
               };
               alert("Checkout Succeeded!");
-            //   this.cart = [];
-              this.$emit('clear-cart');
-              this.$emit('navigator', 'products');
+              //   this.cart = [];
+              this.$emit("clear-cart");
+              this.$emit("navigator", "products");
             } else {
               alert("Please verify your phone number.");
             }
@@ -418,16 +418,15 @@ export default {
         }
       } else {
         alert("Fill in Information Before Checking Out");
-        this.$emit('navigator', 'checkout');
+        this.$emit("navigator", "checkout");
       }
     },
   },
-  computed:{
+  computed: {
     canAdd() {
       return this.products.quantity !== 0;
     },
     // Search functionality
-    
-  }
+  },
 };
 </script>
