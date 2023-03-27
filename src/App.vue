@@ -1,58 +1,8 @@
 <template>
   <div id="app">
+        
         <!-- Header -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-          <a class="navbar-brand mx-5" v-text="sitename" v-on:click="navigator('products')"></a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-end px-5" id="navbarNavAltMarkup">
-            <div class="navbar-nav d-flex">
-              <!-- products Page Cart Button -->
-              <button
-                class="btn btn-primary"
-                v-if="(page === 'products' || page === 'checkout') && cart.length > 0"
-                v-on:click="navigator('cart')">
-                <a v-text="cartItemCount"></a>
-                <span class="fas fa-cart-plus"></span>
-                Show Cart
-              </button>
-
-              <!-- Cart Page products Button -->
-              <button
-                class="btn btn-primary mx-3"
-                v-if="page === 'cart' || page === 'checkout' "
-                v-on:click="navigator('products')"
-              >
-              <i class="fas fa-arrow-left"></i>
-
-                Products
-              </button>
-
-              <!--
-                TODO #1
-               -->
-              <button
-                class="btn btn-danger"
-                v-if="page === 'cart' && !isCartEmpty()"
-                v-on:click="navigator('checkout')"
-              >
-                Checkout
-                <i class="fas fa-arrow-right"></i>
-              </button>
-            </div>
-          </div>
-        </nav>
-        <!-- End Header -->
-
+        <NavbarComponent :page="page" :cart="cart" :sitename="sitename" v-on:navigate="navigate"></NavbarComponent>
 
           <section v-if="page === 'products'" class="py-5 text-center container-fluid jumbotron primary-background ">
             <div class="row py-lg-5">
@@ -360,11 +310,12 @@
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
+import NavbarComponent from './components/NavbarComponent.vue';
 import products from './products.js';
 /* eslint-disable */
 export default{
-  watch: {
+  components: {
+    NavbarComponent
   },
   name: 'App',
   data(){
@@ -391,6 +342,9 @@ export default{
     }
   },
   methods: {
+    navigate(page) {
+      this.page = page
+    },
     // Add product to cart
     addToCart(product) {
       // console.log(product.id);
@@ -506,11 +460,7 @@ export default{
     },
   },
   computed: {
-    cartItemCount: function () {
-      return {
-        itemCount: this.cart.length || ""
-      }
-    },
+   
     canAdd() {
       return this.products.quantity !== 0;
     },
@@ -581,98 +531,4 @@ export default{
   text-align: center;
   color: #2c3e50;
 }
-
-.primary-background {
-  background-color: #0f0e17;
-}
-
-.headline-color {
-  color: #fffffe;
-}
-
-.headline-color::selection{
-  columns: #fffffe;
-}
-.headline-color:hover{
-  columns: #fffffe;
-}
-
-.paragraph-color {
-  color: #a7a9be;
-}
-
-.btn-primary {
-  background-color: #ff8906;
-  border-color: #ff8906;
-  color: #fffffe;
-}
-
-.btn-primary:hover {
-  background-color: #e27900;
-  border-color: #e27900;
-  color: #fffffe;
-}
-
-.btn-primary:active {
-  background-color: #ff9d2c;
-  border-color: #ff9d2c;
-  color: #fffffe;
-}
-
-.btn-secondary {
-  background-color: #f25f4c;
-  border-color: #f25f4c;
-  color: #fffffe;
-}
-
-a {
-  font-weight: 600;
-}
-
-
-.sticky-top.scrolled {
-  background-color: #0f0e17 !important;
-  transition: background-color 200ms linear;
-}
-
-.scrolled a {
-  color: #fffffe;
-}
-
-img {
-  min-height: 234.34px !important;
-  max-height: 234.34px !important;
-}
-
-.arrow {
-  text-align: center;
-  margin: 8% 0;
-}
-.bounce {
-  -moz-animation: bounce 2s infinite;
-  -webkit-animation: bounce 2s infinite;
-  animation: bounce 2s infinite;
-}
-
-
-.arrow a {
-  text-decoration: none;
-  color: #ff8906;
-}
-@keyframes bounce {
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-30px);
-  }
-  60% {
-    transform: translateY(-15px);
-  }
-}
-
 </style>
