@@ -100,4 +100,5 @@ const products = [
       cartquantity: 0,
     },
   ];
-  
+
+export default products;
