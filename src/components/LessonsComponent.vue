@@ -332,7 +332,10 @@ export default {
         this.$emit("decrease-cart-quantity", product);
     },
     removeFromCart(product) {
-      this.$emit("remove-from-cart", product);
+        console.log("Removing from cart...");
+        console.log("Cart", this.cart);
+        console.log("Product: ", product);
+        this.$emit("remove-from-cart", product);
     },
     // Show or Hide Quantity Decreaser button in the cart page
     checkProductQuantity(product) {

@@ -20,7 +20,7 @@
                 class="btn btn-primary"
                 v-if="(page === 'products' || page === 'checkout') && cart.length > 0"
                 v-on:click="navigator('cart')">
-                <a v-text="cartItemCount"></a>
+                {{ cartItemCount.itemCount }}
                 <span class="fas fa-cart-plus"></span>
                 Show Cart
               </button>

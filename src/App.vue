@@ -84,11 +84,15 @@ export default {
     },
 
     // Remove product from cart in the cart page
-    removeFromCart(product) {
-      this.cart.splice(product, 1);
-      product.cartquantity = 0;
-      product.space = product.stock;
+    removeFromCart(product){
+      const index = this.cart.indexOf(product);
+      if (index > -1) {
+        this.cart.splice(index, 1);
+        product.cartquantity = 0;
+        product.space = product.stock;
+      }
     },
+
 
      // Decrease the quantity of the product by one (1)
      decreaseCartQuantity(product) {
