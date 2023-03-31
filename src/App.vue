@@ -49,7 +49,6 @@ import LessonsComponent from "./components/LessonsComponent.vue";
 
 
 
-import products from "./products.js";
 /* eslint-disable */
 export default {
   components: {
@@ -57,11 +56,16 @@ export default {
     LessonsComponent,
   },
   name: "App",
+  mounted() {
+    fetch("http://localhost:3000/api/lessons")
+      .then((res) => res.json())
+      .then((data) => (this.products = data));
+  },
   data() {
     return {
       sitename: "School UMS",
       page: "products",
-      products: products,
+      products: [],
       cart: [],
     };
   },
