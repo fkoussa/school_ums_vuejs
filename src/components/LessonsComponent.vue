@@ -325,11 +325,13 @@ export default {
     };
   },
   methods: {
+    // Decrease quantity of product
     decreaseQuantity(product){
         console.log("Decreasing Quantity...");
         console.log(product);
         this.$emit("decrease-cart-quantity", product);
     },
+    // Remove product from cart
     removeFromCart(product) {
         console.log("Removing from cart...");
         console.log("Cart", this.cart);
@@ -420,15 +422,14 @@ export default {
         this.$emit("navigator", "checkout");
       }
     },
-    // changeSearch() {
-    //   console.log("search...");
-    //   this.$emit('change-search', this.search);
-    // }
   },
   computed: {
+    // Check quantity
     canAdd() {
       return this.products.quantity !== 0;
     },
+
+    // List products with search and sorting
     productList() {
       let products = this.products;
       if (this.search) {
@@ -480,12 +481,6 @@ export default {
       } else {
         return products;
       }
-    },
-    // Search functionality
-    filteredProductList() {
-      return this.productList.filter((product) => {
-        return product.name.toLowerCase().includes(this.search.toLowerCase());
-      });
     }
 },
 };

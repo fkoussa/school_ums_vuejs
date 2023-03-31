@@ -32,7 +32,6 @@
       :cart="cart"
       @remove-from-cart="removeFromCart"
       @add-to-cart="addToCart"
-      @clear-cart="clearCart"
       @navigator="navigate"
       @decrease-cart-quantity="decreaseCartQuantity"
     >
@@ -56,36 +55,14 @@ export default {
     return {
       sitename: "School UMS",
       page: "products",
-      // search: "",
       products: products,
-      // showProducts: true,
-      // sortBy: "subject",
-      // sort_asc_desc: "asc",
       cart: [],
-      // checkout: [],
-      // test: false,
-      // order: {
-      //   firstName: "",
-      //   lastName: "",
-      //   address: "",
-      //   city: "",
-      //   email: "",
-      //   phone: "",
-      //   state: [],
-      // },
     };
   },
   methods: {
-    // changeSearch(search) {
-    //   this.search = search;
-    // },
     navigate(page) {
       this.page = page;
     },
-    clearCart() {
-      this.cart = [];
-    },
-
     // Remove product from cart in the cart page
     removeFromCart(product) {
       const index = this.cart.indexOf(product);
