@@ -11,7 +11,7 @@
           name="search"
           class="form-control"
           placeholder="Search"
-          v-model="search"
+          :v-model="search"
         />
       </div>
       <div class="col-md-6">
@@ -300,18 +300,17 @@ export default {
     products: { type: Array, required: true },
     // showProducts: {type: Boolean, required: true},
     cart: { type: Array, required: true },
-    productList: {
-      type: Array,
-      required: true,
-    },
-    // productList: { type: Array, required: true },
+    // productList: {
+    //   type: Array,
+    //   required: true,
+    // }    // productList: { type: Array, required: true },
   },
   data() {
     return {
-      search: "",
       sortBy: "subject",
       sort_asc_desc: "asc",
       showProducts: true,
+      search: "",
       checkout: [],
       order: {
         firstName: "",
@@ -347,9 +346,6 @@ export default {
         return false;
       }
     },
-
-   
-
     showCart() {
       // Toggle
       this.showProducts = this.showProducts ? false : true;
@@ -424,12 +420,73 @@ export default {
         this.$emit("navigator", "checkout");
       }
     },
+    // changeSearch() {
+    //   console.log("search...");
+    //   this.$emit('change-search', this.search);
+    // }
   },
   computed: {
     canAdd() {
       return this.products.quantity !== 0;
     },
+    productList() {
+      let products = this.products;
+      if (this.search) {
+        console.log(this.search);
+        return this.products.filter((item) => {
+          try {
+            return (
+              item.subject.toLowerCase().includes(this.search.toLowerCase()) ||
+              item.location.toLowerCase().includes(this.search.toLowerCase())
+            );
+          } catch (err) {
+            console.log(err);
+          }
+        });
+      } else if (this.sortBy === "subject") {
+        return products.sort((a, b) => {
+          console.log("a: " + a.subject);
+          console.log("b: " + b.suject )
+          if (this.sort_asc_desc === "asc") {
+            return a.subject.localeCompare(b.subject);
+          } else if (this.sort_asc_desc === "desc") {
+            return b.subject.localeCompare(a.subject);
+          }
+        });
+      } else if (this.sortBy === "price") {
+        return products.sort((a, b) => {
+          if (this.sort_asc_desc === "asc") {
+            return a.price - b.price;
+          } else if (this.sort_asc_desc === "desc") {
+            return b.price - a.price;
+          }
+        });
+      } else if (this.sortBy === "space") {
+        return products.sort((a, b) => {
+          if (this.sort_asc_desc === "asc") {
+            return a.space - b.space;
+          } else if (this.sort_asc_desc === "desc") {
+            return b.space - a.space;
+          }
+        });
+      } else if (this.sortBy === "location") {
+        return products.sort((a, b) => {
+          if (this.sort_asc_desc === "asc") {
+            return a.location - b.location;
+          } else if (this.sort_asc_desc === "desc") {
+            return b.location - a.location;
+          }
+        });
+      } else {
+        return products;
+      }
+    },
     // Search functionality
-  },
+    filteredProductList() {
+      return this.productList.filter((product) => {
+        return product.name.toLowerCase().includes(this.search.toLowerCase());
+      });
+    }
+},
 };
 </script>

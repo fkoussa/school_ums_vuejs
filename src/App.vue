@@ -29,7 +29,6 @@
     <LessonsComponent
       :page="page"
       :products="products"
-      :product-list="productList"
       :cart="cart"
       @remove-from-cart="removeFromCart"
       @add-to-cart="addToCart"
@@ -57,6 +56,7 @@ export default {
     return {
       sitename: "School UMS",
       page: "products",
+      // search: "",
       products: products,
       // showProducts: true,
       // sortBy: "subject",
@@ -76,6 +76,9 @@ export default {
     };
   },
   methods: {
+    // changeSearch(search) {
+    //   this.search = search;
+    // },
     navigate(page) {
       this.page = page;
     },
@@ -84,7 +87,7 @@ export default {
     },
 
     // Remove product from cart in the cart page
-    removeFromCart(product){
+    removeFromCart(product) {
       const index = this.cart.indexOf(product);
       if (index > -1) {
         this.cart.splice(index, 1);
@@ -93,19 +96,31 @@ export default {
       }
     },
 
-
-     // Decrease the quantity of the product by one (1)
-     decreaseCartQuantity(product) {
+    // Decrease the quantity of the product by one (1)
+    decreaseCartQuantity(product) {
       console.log("Entered App.vue decreaseCartQuantity");
-      console.log("Product: " + product.id + " - " + product.subject + " - " + product.cartquantity);
-      try{
+      console.log(
+        "Product: " +
+          product.id +
+          " - " +
+          product.subject +
+          " - " +
+          product.cartquantity
+      );
+      try {
         product.cartquantity -= 1;
-      product.space += 1;
-      } catch(err){
+        product.space += 1;
+      } catch (err) {
         console.log("Error in App.vue decreaseCartQuantity" + err);
       }
-      console.log("Product: " + product.id + " - " + product.subject + " - " + product.cartquantity);
-
+      console.log(
+        "Product: " +
+          product.id +
+          " - " +
+          product.subject +
+          " - " +
+          product.cartquantity
+      );
     },
 
     addToCart(product) {
@@ -133,56 +148,7 @@ export default {
   },
   computed: {
     // Search functionality
-    productList() {
-      if (this.search) {
-        return this.products.filter((item) => {
-          try {
-            return (
-              item.subject.toLowerCase().includes(this.search.toLowerCase()) ||
-              item.location.toLowerCase().includes(this.search.toLowerCase())
-            );
-          } catch (err) {
-            console.log(err);
-          }
-        });
-      } else if (this.sortBy === "subject") {
-        return this.products.sort((a, b) => {
-          console.log("a: " + a.subject);
-          console.log("b: " + b.suject);
-          if (this.sort_asc_desc === "asc") {
-            return a.subject.localeCompare(b.subject);
-          } else if (this.sort_asc_desc === "desc") {
-            return b.subject.localeCompare(a.subject);
-          }
-        });
-      } else if (this.sortBy === "price") {
-        return this.products.sort((a, b) => {
-          if (this.sort_asc_desc === "asc") {
-            return a.price - b.price;
-          } else if (this.sort_asc_desc === "desc") {
-            return b.price - a.price;
-          }
-        });
-      } else if (this.sortBy === "space") {
-        return this.products.sort((a, b) => {
-          if (this.sort_asc_desc === "asc") {
-            return a.space - b.space;
-          } else if (this.sort_asc_desc === "desc") {
-            return b.space - a.space;
-          }
-        });
-      } else if (this.sortBy === "location") {
-        return this.products.sort((a, b) => {
-          if (this.sort_asc_desc === "asc") {
-            return a.location - b.location;
-          } else if (this.sort_asc_desc === "desc") {
-            return b.location - a.location;
-          }
-        });
-      } else {
-        return this.products;
-      }
-    },
+  
   },
 };
 </script>
