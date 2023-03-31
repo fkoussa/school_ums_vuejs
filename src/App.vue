@@ -70,6 +70,7 @@ export default {
       this.page = page;
     },
     // Remove product from cart in the cart page
+    // Remove Lesson from cart in the cart page and add quantity accordingly
     removeFromCart(product) {
       const index = this.cart.indexOf(product);
       if (index > -1) {

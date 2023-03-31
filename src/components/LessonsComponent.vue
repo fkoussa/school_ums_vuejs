@@ -203,7 +203,9 @@ export default {
         console.log(product);
         this.$emit("decrease-cart-quantity", product);
     },
+
     // Remove product from cart
+    // RemoveLesson
     removeFromCart(product) {
         console.log("Removing from cart...");
         console.log("Cart", this.cart);
@@ -226,6 +228,7 @@ export default {
     },
 
     // Add product to cart
+    // AddLesson 
     addToCart(product) {
       // console.log(product.id);
       if (!this.cart.includes(product)) {
