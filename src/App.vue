@@ -57,7 +57,7 @@ export default {
   },
   name: "App",
   mounted() {
-    fetch("http://localhost:3000/api/lessons")
+    fetch("https://dry-wave-76130.herokuapp.com/api/lessons")
       .then((res) => res.json())
       .then((data) => (this.products = data));
   },
