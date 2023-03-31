@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 /dist
-
+Coursework_3
 
 # local env files
 .env.local
