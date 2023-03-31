@@ -11,7 +11,7 @@
           name="search"
           class="form-control"
           placeholder="Search"
-          :v-model="search"
+          v-model="search"
         />
       </div>
       <div class="col-md-6">
