@@ -32,16 +32,22 @@
       :cart="cart"
       @remove-from-cart="removeFromCart"
       @add-to-cart="addToCart"
-      @navigator="navigate"
+      @navigate="navigator"
+      @clear-cart="clearCart"
       @decrease-cart-quantity="decreaseCartQuantity"
     >
+  
     </LessonsComponent>
+
+    
   </div>
 </template>
 
 <script>
 import NavbarComponent from "./components/NavbarComponent.vue";
 import LessonsComponent from "./components/LessonsComponent.vue";
+
+
 
 import products from "./products.js";
 /* eslint-disable */
@@ -111,6 +117,11 @@ export default {
 
     cartQuantity(product) {
       return product.cartquantity;
+    },
+
+    // Clear Cart (For checkout page)
+    clearCart() {
+      this.cart = [];
     },
 
     isCartEmpty: function () {

@@ -29,7 +29,7 @@
               <button
                 class="btn btn-primary mx-3"
                 v-if="page === 'cart' || page === 'checkout' "
-                v-on:click="navigator('products')"
+                @click="navigator('products')"
               >
               <i class="fas fa-arrow-left"></i>
 
@@ -42,7 +42,7 @@
               <button
                 class="btn btn-danger"
                 v-if="page === 'cart' && !isCartEmpty()"
-                v-on:click="navigator('checkout')"
+                @click="navigator('checkout')"
               >
                 Checkout
                 <i class="fas fa-arrow-right"></i>
